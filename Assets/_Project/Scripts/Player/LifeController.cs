@@ -19,6 +19,8 @@ public class LifeController : MonoBehaviour
     private Coroutine visibilityCoroutine;
     [SerializeField] GameOverController GOC;
 
+   
+
     void Start()
     {
         UpdateLifeUI();
@@ -33,7 +35,7 @@ public class LifeController : MonoBehaviour
 
         if (currentLife <= 0)
         {
-            GOC.HandleDefeat();
+            GOC.HandleDeath();
         }
     }
     public void Heal(int amount)

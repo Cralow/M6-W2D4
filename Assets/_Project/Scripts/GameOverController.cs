@@ -12,9 +12,11 @@ public class GameOverController : MonoBehaviour
     [SerializeField] private Text uiTimer;
 
     [SerializeField] private GameObject playerCam;       
-    [SerializeField] private GameObject playeroObj;         
+    [SerializeField] private GameObject playeroObj;
+    [SerializeField] private GameObject playerCanvasDeath;
     [SerializeField] private GameObject playerCanvasWin;   
-    [SerializeField] private GameObject playerCanvasLose;    
+    [SerializeField] private GameObject playerCanvasLose;
+    [SerializeField] private LifeController lifeController;
     AudioSource sound;
 
     //endlevel
@@ -22,6 +24,7 @@ public class GameOverController : MonoBehaviour
     [SerializeField] private float checkRadius = 1f;
     [SerializeField] private LayerMask playerLayer;
     private bool gameEnded = false;
+
 
     void Start()
     {
@@ -35,6 +38,8 @@ public class GameOverController : MonoBehaviour
             gameEnded = true;
             HandleVictory();
         }
+
+
     }
     private IEnumerator LevelTimerRoutine()
     {
@@ -50,10 +55,19 @@ public class GameOverController : MonoBehaviour
         uiTimer.text = "0";
         HandleDefeat();
     }
+    public void HandleDeath()
+    {
+        playerCam.GetComponent<CameraOrbit>().enabled = false;
+        sound.enabled = false;
+        playeroObj.SetActive(false);
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        playerCanvasDeath.SetActive(true);
+    }
     public void HandleVictory()
     {
-      playerCam.GetComponent<CameraOrbit>().enabled = false;
+         playerCam.GetComponent<CameraOrbit>().enabled = false;
         sound.enabled = false;
         playeroObj.SetActive(false);
 
@@ -72,12 +86,12 @@ public class GameOverController : MonoBehaviour
         Cursor.visible = true;
         playerCanvasLose.SetActive(true);
     }
-
+   //pulsante per il meniu
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(sceneNameMainMenu);
     }
-
+    //pulsante per restart 
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
