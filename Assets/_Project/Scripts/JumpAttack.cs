@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class JumpAttack : MonoBehaviour
 {
+    [Header("References")]
+    private LavaBounce lavaTerrain;
+    private Rigidbody rb;
+    private Renderer rend;
+
     [Header("Settings")]
     public float attackDelay = 1f;
     public float revertDelay = 0.5f;
@@ -12,18 +17,17 @@ public class JumpAttack : MonoBehaviour
     [Header("Materials")]
     public Material originalMaterial;
     public Material smashMaterial;
-    private LavaBounce lavaTerrain;
 
     [Header("Tags")]
     public string smashTag = "Lava";
 
     private string originalTag;         
-    private Renderer rend;
     public Animator JumpToweranimator;
 
     void Awake()
     {
         rend = GetComponent<Renderer>();
+        rb = GetComponent<Rigidbody>();
 
         if (originalMaterial == null && rend != null)
             originalMaterial = rend.material;
@@ -55,17 +59,23 @@ public class JumpAttack : MonoBehaviour
             yield return new WaitForSeconds(attackDelay);
         }
 
-        // Schianto: cambia materiale e tag
+        // Schianto: cambia materiale e tag e rigidbody collision detection
         if (rend != null && smashMaterial != null)
+        {
             rend.material = smashMaterial;
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
 
         gameObject.tag = smashTag;
 
         yield return new WaitForSeconds(revertDelay);
 
-        // Ripristina materiale, tag e ferma animazione
+        // Ripristina materiale, tag e ferma animazione reimposta rigidbody collision detection
         if (rend != null && originalMaterial != null)
+        {
             rend.material = originalMaterial;
+            rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
+        }
 
         gameObject.tag = originalTag;
 

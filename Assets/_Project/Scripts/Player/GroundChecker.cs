@@ -8,6 +8,7 @@ public class GroundChecker : MonoBehaviour
 {
     [Header("Ground Check Settings")]
     [SerializeField] private float checkDistance = 0.2f;
+    [SerializeField] private float checkRadious = 0.2f;
     [SerializeField] private LayerMask groundLayers;
     [SerializeField] public UnityEvent<bool> onIsGroundedChanged;
 
@@ -22,26 +23,16 @@ public class GroundChecker : MonoBehaviour
             GetComponent<Collider>().bounds.min.y + 0.05f,
             transform.position.z);
 
-        bool grounded = Physics.Raycast(origin, Vector3.down, checkDistance, groundLayers);
+        bool groundedR = Physics.Raycast(origin, Vector3.down, checkDistance, groundLayers);
+        bool groundedS = Physics.CheckSphere(origin, checkRadious, groundLayers);
+        
+        bool grounded = groundedR ||  groundedS;
+
         if (grounded != prevGrounded)
             onIsGroundedChanged?.Invoke(grounded);
 
         IsGrounded = grounded;
         prevGrounded = grounded;
     }
-    private void OnCollisionEnter(Collision hit)
-    {
-        if (hit.collider.CompareTag("PiattaformaRotante"))
-        {
-            transform.SetParent(hit.collider.transform);
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.collider.CompareTag("PiattaformaRotante"))
-        {
-            transform.SetParent(null);
-        }
-    }
+  
 }

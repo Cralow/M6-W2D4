@@ -29,7 +29,10 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 moveDir = mainCamera.transform.forward * v + mainCamera.transform.right * h;
         moveDir.y = 0;
-        moveDir.Normalize();
+        if (moveDir.y > 1)
+        {
+            moveDir.Normalize();
+        }
 
         if (moveDir != Vector3.zero)
         {
