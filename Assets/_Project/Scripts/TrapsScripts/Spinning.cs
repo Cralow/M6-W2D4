@@ -8,6 +8,7 @@ public class Spinning : MonoBehaviour
     [SerializeField] float rotationSpeed = 90f;
     [SerializeField] string playerString = "Player";
 
+
     private float currentY = 0f;
 
     void Start()
@@ -31,11 +32,8 @@ public class Spinning : MonoBehaviour
         if (collision.collider.CompareTag(playerString))
         {
             Transform player = collision.transform;
-            Quaternion originalRotation = player.rotation;
 
             player.SetParent(transform, true);
-
-            player.rotation = originalRotation;
         }
     }
 
@@ -44,11 +42,8 @@ public class Spinning : MonoBehaviour
         if (collision.collider.CompareTag(playerString))
         {
             Transform player = collision.transform;
-            Quaternion originalRotation = player.rotation;
 
             player.SetParent(null, true);
-
-            player.rotation = originalRotation;
         }
     }
 }

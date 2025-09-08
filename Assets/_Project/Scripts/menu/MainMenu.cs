@@ -13,6 +13,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private string sceneNameCastle;
     [SerializeField] private string sceneNameLevel;
 
+    private Coroutine intro;
+    [SerializeField] private KeyCode skipKeyCode= KeyCode.Escape;
+
     private void Start()
     {
         StartCoroutine(WaitForVideoEnd());
@@ -41,7 +44,7 @@ public class MainMenu : MonoBehaviour
         introVideoDuration.gameObject.SetActive(true);
         introVideoDuration.Play();
 
-        StartCoroutine(WaitForIntroVideoEnd());
+        intro = StartCoroutine(WaitForIntroVideoEnd());
     }
 
     private IEnumerator WaitForIntroVideoEnd()
@@ -52,7 +55,16 @@ public class MainMenu : MonoBehaviour
 
         // Aspetta fine
         while (introVideoDuration.isPlaying)
+        {
+            if (Input.GetKeyDown(skipKeyCode))
+            {
+                StopCoroutine(intro);
+                LoadScene(sceneNameCastle);
+            }
+
             yield return null;
+
+        }
 
 
         LoadScene(sceneNameCastle);

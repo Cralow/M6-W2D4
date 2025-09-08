@@ -57,7 +57,6 @@ public class GameOverController : MonoBehaviour
     }
     public void HandleDeath()
     {
-        playerCam.GetComponent<CameraOrbit>().enabled = false;
         sound.enabled = false;
         playeroObj.SetActive(false);
 
@@ -67,7 +66,6 @@ public class GameOverController : MonoBehaviour
     }
     public void HandleVictory()
     {
-         playerCam.GetComponent<CameraOrbit>().enabled = false;
         sound.enabled = false;
         playeroObj.SetActive(false);
 
@@ -78,7 +76,6 @@ public class GameOverController : MonoBehaviour
 
     public void HandleDefeat()
     {
-       playerCam.GetComponent<CameraOrbit>().enabled=false;
         sound.enabled = false;
         playeroObj.SetActive(false);
 

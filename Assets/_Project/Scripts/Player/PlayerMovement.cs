@@ -6,9 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private float rotationSmoothness = 0.2f;
+    [SerializeField] private Camera mainCamera;
 
     private Rigidbody rb;
-    private Camera mainCamera;
     private PlayerAnimation anim;
 
 

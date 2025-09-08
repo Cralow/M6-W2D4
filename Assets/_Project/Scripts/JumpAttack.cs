@@ -59,7 +59,7 @@ public class JumpAttack : MonoBehaviour
             yield return new WaitForSeconds(attackDelay);
         }
 
-        // Schianto: cambia materiale e tag e rigidbody collision detection
+        // Schianto: cambia materiale, layer, tag e rigidbody collision detection
         if (rend != null && smashMaterial != null)
         {
             rend.material = smashMaterial;
@@ -70,7 +70,7 @@ public class JumpAttack : MonoBehaviour
 
         yield return new WaitForSeconds(revertDelay);
 
-        // Ripristina materiale, tag e ferma animazione reimposta rigidbody collision detection
+        // Ripristina materiale,layer, tag , ferma animazione, reimposta rigidbody collision detection
         if (rend != null && originalMaterial != null)
         {
             rend.material = originalMaterial;
