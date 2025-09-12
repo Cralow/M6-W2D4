@@ -9,16 +9,15 @@ public class LavaBounce : MonoBehaviour
 
     private Rigidbody rb;
     private bool canBounce = true;
-    public float bounceCooldown = 0.5f; // per evitare rimbalzi multipli
+    public float bounceCooldown = 0.1f; // per evitare rimbalzi multipli
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-
-        if (collision.collider.tag == lavaTag && canBounce)
+        if (other.CompareTag(lavaTag) && canBounce)
         {
             Bounce();
             gameObject.GetComponent<PlayerJump>().jumpsRemaining = 0;
@@ -26,7 +25,6 @@ public class LavaBounce : MonoBehaviour
             gameObject.GetComponent<PlayerAnimation>().OnIsBurningChanged(true);
         }
     }
- 
 
     void Bounce()
     {

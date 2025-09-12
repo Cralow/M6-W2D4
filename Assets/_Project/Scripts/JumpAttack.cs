@@ -8,6 +8,7 @@ public class JumpAttack : MonoBehaviour
     private LavaBounce lavaTerrain;
     private Rigidbody rb;
     private Renderer rend;
+    private MeshCollider collider;
 
     [Header("Settings")]
     public float attackDelay = 1f;
@@ -26,6 +27,7 @@ public class JumpAttack : MonoBehaviour
 
     void Awake()
     {
+        collider = GetComponent<MeshCollider>();
         rend = GetComponent<Renderer>();
         rb = GetComponent<Rigidbody>();
 
@@ -64,9 +66,12 @@ public class JumpAttack : MonoBehaviour
         {
             rend.material = smashMaterial;
             rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            
         }
 
         gameObject.tag = smashTag;
+        collider.isTrigger = true;
+     
 
         yield return new WaitForSeconds(revertDelay);
 
@@ -78,6 +83,7 @@ public class JumpAttack : MonoBehaviour
         }
 
         gameObject.tag = originalTag;
+        collider.isTrigger = false;
 
         if (JumpToweranimator != null)
             JumpToweranimator.SetBool("isAttacking", false);
