@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    [Header("Particle System")]
+    [SerializeField] private ParticleSystem _particleSystem;
+
     [Header("Animator Parameters")]
     [SerializeField] private string paramForward = "forward";
     [SerializeField] private string paramVSpeed = "vSpeed";
