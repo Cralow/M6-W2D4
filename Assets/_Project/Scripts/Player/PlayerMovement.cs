@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + moveDir * speed * Time.fixedDeltaTime);
-        anim.UpdateMovementAnimation(v);
+        anim.UpdateMovementAnimation(moveDir.sqrMagnitude);
 
     }
 
