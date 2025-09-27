@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CinematicsCameraController : MonoBehaviour
 {
@@ -8,22 +9,38 @@ public class CinematicsCameraController : MonoBehaviour
     [SerializeField] private GameObject cameraObj1;
     [SerializeField] private GameObject cameraObj2;
 
+    [SerializeField] private string lethalLavaLandSceneName;
+    private Coroutine coroutine1;
+
     private void Awake()
     {
-        StartCoroutine(AnimationRoutine());
+        coroutine1= StartCoroutine(AnimationRoutine());
     }
     public IEnumerator AnimationRoutine()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(AnimationRoutine2());
+        }
         yield return new WaitForSeconds(animationTime);
-        cameraObj1.SetActive(false);
-        cameraObj2.SetActive(true);
-        StartCoroutine(AnimationRoutine2());
+
     }
+
+
     public IEnumerator AnimationRoutine2()
     {
-
+        StopCoroutine(coroutine1);
+        cameraObj1.SetActive(false);
+        cameraObj2.SetActive(true);
         yield return new WaitForSeconds(animationTime);
-        //carica scena
+    }
+    public void LoadPlayScene()
+    {
+        SceneManager.LoadScene(lethalLavaLandSceneName);
+    }
+    //riferimento da Ui
+    public void UI_StartAnimation2()
+    {
+        StartCoroutine(AnimationRoutine2());
     }
 }

@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/LethalLavaLand.unity
     guid: 7574a3f9b88179942937014a9ba11114
+  - enabled: 1
+    path: Assets/_Project/Scenes/LethalLavaLandCinematics.unity
+    guid: ec6aefad211d1c548b3fd4b8198c4307
   m_configObjects: {}

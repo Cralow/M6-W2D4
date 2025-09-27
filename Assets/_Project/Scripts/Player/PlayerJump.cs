@@ -15,6 +15,8 @@ public class PlayerJump : MonoBehaviour
     private GroundChecker groundChecker;
     private PlayerAnimation anim;
 
+    [SerializeField] private bool isCinematicMode;
+
     private void Start()
     {
         rb = GetComponentInChildren<Rigidbody>();
@@ -25,11 +27,12 @@ public class PlayerJump : MonoBehaviour
 
     private void Update()
     {
+      if (!isCinematicMode) { 
         if (groundChecker.IsGrounded)
             jumpsRemaining = extraJumps;
 
         if (Input.GetKeyDown(KeyCode.Space) && (groundChecker.IsGrounded || jumpsRemaining > 0))
-        {
+            {
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
@@ -38,6 +41,12 @@ public class PlayerJump : MonoBehaviour
 
             anim.OnJump();
             onJump.Invoke();
+             }
+
         }
-    }
+        else
+        {
+            //Animazione unica di scena
+        }
+  }
 }
