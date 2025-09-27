@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameOverController : MonoBehaviour
 {
-    [SerializeField] private string sceneNameMainMenu;
-
     [SerializeField] private float levelTimer = 30f;
     [SerializeField] private Text uiTimer;
 
@@ -86,7 +84,7 @@ public class GameOverController : MonoBehaviour
    //pulsante per il meniu
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene(sceneNameMainMenu);
+        GameManager.Instance.Load_MainMenu();
     }
     //pulsante per restart 
     public void RestartLevel()

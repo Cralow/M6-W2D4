@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Video;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -9,9 +8,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject objectToActivate;
     [SerializeField] private VideoPlayer introVideoDuration;
 
-    [SerializeField] private string sceneNameMenu;
-    [SerializeField] private string sceneNameCastle;
-    [SerializeField] private string sceneNameLevel;
 
     private Coroutine intro;
     [SerializeField] private KeyCode skipKeyCode= KeyCode.Escape;
@@ -59,7 +55,7 @@ public class MainMenu : MonoBehaviour
             if (Input.GetKeyDown(skipKeyCode))
             {
                 StopCoroutine(intro);
-                LoadScene(sceneNameCastle);
+                GameManager.Instance.Load_CastelScene();
             }
 
             yield return null;
@@ -67,11 +63,11 @@ public class MainMenu : MonoBehaviour
         }
 
 
-        LoadScene(sceneNameCastle);
+        GameManager.Instance.Load_CastelScene();
     }
 
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        GameManager.Instance.Load_MainMenu();
     }
 }

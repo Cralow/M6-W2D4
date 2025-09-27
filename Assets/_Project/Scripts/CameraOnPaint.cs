@@ -35,6 +35,6 @@ public class CameraOnPaint : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        SceneManager.LoadScene(LethalLavaLandSceneName);
+        GameManager.Instance.Load_CinematicScene();
     }
 }

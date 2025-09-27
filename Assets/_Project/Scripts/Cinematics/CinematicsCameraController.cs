@@ -36,7 +36,7 @@ public class CinematicsCameraController : MonoBehaviour
     }
     public void LoadPlayScene()
     {
-        SceneManager.LoadScene(lethalLavaLandSceneName);
+        GameManager.Instance.Load_GameScene();
     }
     //riferimento da Ui
     public void UI_StartAnimation2()
