@@ -13,6 +13,9 @@ public class Turret : MonoBehaviour
     [Header("References e Variables")]
     public Transform player;
     public GameObject projectilePrefab;
+
+
+
     public Transform firePoint;
     public float detectionRange = 10f;
     public float fireRate = 1f;
@@ -58,9 +61,10 @@ public class Turret : MonoBehaviour
 
         yield return new WaitForSeconds(timerSyncro);
 
-        var a = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+       var a = ObjectPooler.Instance.SpawnFromPool("Bullet", firePoint.position, firePoint.rotation);
+       // var a = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         a.GetComponent<Rigidbody>().AddForce(transform.forward * firePower, ForceMode.Impulse);
-
+        StartCoroutine(BulletLifetime(a));
         yield return new WaitForSeconds(0.1f);
         anim.SetBool(paramIsShooting, false);
     }
@@ -68,6 +72,11 @@ public class Turret : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
+    }
+    IEnumerator BulletLifetime(GameObject bullet)
+    {
+        yield return new WaitForSeconds(15f);
+        bullet.SetActive(false);
     }
 }
 
